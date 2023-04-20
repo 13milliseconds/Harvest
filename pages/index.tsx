@@ -19,8 +19,6 @@ export default function Home() {
     setPlants(plantList)
   }
 
-  console.log(plants)
-
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
       <div className="z-10 w-full max-w-5xl items-center font-mono text-sm lg:flex">
