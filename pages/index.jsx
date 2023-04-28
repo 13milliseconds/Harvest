@@ -1,18 +1,18 @@
 import { Inter } from 'next/font/google'
 import { db } from '../firebaseConfig';
-import { Firestore, DocumentData, collection, getDocs } from '@firebase/firestore';
+import { collection, getDocs } from '@firebase/firestore';
 import { useEffect, useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const [plants, setPlants] = useState<DocumentData[]>([])
+  const [plants, setPlants] = useState([])
 
   useEffect(() => {
     getPlants(db)
   }, [])
   
-  const getPlants = async (db: Firestore) => {
+  const getPlants = async (db) => {
     const plantsCol = collection(db, 'plants')
     const plantSnapshot = await getDocs(plantsCol)
     const plantList = plantSnapshot.docs.map(doc => doc.data())
