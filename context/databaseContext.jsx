@@ -3,6 +3,7 @@ import React, { createContext, useReducer} from 'react'
 export const dbActions = {
     LOAD_BRANDS: 'LOAD_BRANDS',
     ADD_BRAND: 'ADD_BRAND',
+    DELETE_BRAND: 'DELETE_BRAND'
   }
 
 const initialDatabaseState = {
@@ -36,6 +37,12 @@ export function DatabaseProvider ({ children }) {
       }
       case dbActions.ADD_BRAND: {
         let newBrandList = [...database.brands, action.payload.brand]
+        return {...database,
+          brands: newBrandList
+        };
+      }
+      case dbActions.DELETE_BRAND: {
+        let newBrandList = database.brands.filter((brand) => { return brand.id !== action.payload.id })
         return {...database,
           brands: newBrandList
         };
