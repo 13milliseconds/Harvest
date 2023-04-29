@@ -1,34 +1,37 @@
 import axios from 'axios'
-import { dbDispatchContext, dbContext, dbActions } from '../context/databaseContext';
+import { dbDispatchContext, dbContext } from '../context/databaseContext';
+import {dbActions} from '../context/databaseReducer'
 import { useEffect, useContext, useState } from 'react';
 
 //components
 import Button from '../components/Button'
 
 
+
 export default function Brands() {
   const dispatch = useContext(dbDispatchContext)
   const state = useContext(dbContext)
+
   
   const [inputText, setinputText] = useState('')
-  let APItest
 
   useEffect(() => {
     loadBrands()
   }, [])
 
   const loadBrands = async function (){
-    const documents = await axios.get('/api/brands', {});
-
-    dispatch({
-      type: dbActions.LOAD_DOCUMENTS,
-      payload: {
-        documents: documents.data,
-        type: 'brands',
-        loaded: true,
-        loading: false
+    try {
+      const documents = await axios.get('/api/brands', {});
+      dispatch({
+        type: dbActions.LOAD_DOCUMENTS,
+        payload: {
+          documents: documents.data,
+          type: 'brands'
+        }
+        })
+      } catch(e){
+        console.log(e)
       }
-    })
   }
 
   const handleSubmit = async function(e){
@@ -74,7 +77,6 @@ export default function Brands() {
   return (
     <main className="min-h-screen p-24">
         <div className="">
-          {APItest}
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
               <tr>
@@ -85,7 +87,7 @@ export default function Brands() {
               </tr>
             </thead>
             <tbody>
-        {state.brands.map((brand, index) => 
+        {state.brands.documents?.map((brand, index) => 
             <tr key={brand.id} className={`${index % 2 == 0 ? 'bg-white' : 'bg-grey-50'} border-b`}>
             <th scope="row" className="px-6 py-4">{ brand.data['name'] }</th>
             <td className="px-6 py-4">0</td>
