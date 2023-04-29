@@ -1,5 +1,5 @@
 import { db } from '../firebaseConfig';
-import { collection, getDocs, addDoc } from '@firebase/firestore';
+import { collection, doc, getDocs, addDoc, deleteDoc } from '@firebase/firestore';
 import { dbDispatchContext, dbContext, dbActions } from '../context/databaseContext';
 import { useEffect, useContext, useState } from 'react';
 
@@ -27,7 +27,6 @@ export default function Brands() {
     const brandList = brandsnapshot.docs.map(doc => {
       return {id: doc.id, data: doc.data()}
     })
-    console.log(brandList)
     dispatch({
       type: dbActions.LOAD_BRANDS,
       payload: {
@@ -41,8 +40,9 @@ export default function Brands() {
   const handleSubmit = async function(e){
     e.preventDefault()
 
+    let docRef
     try{
-      await addDoc(brandsCol, {
+      docRef = await addDoc(brandsCol, {
         name: inputText,
       });
     } catch(e){
@@ -54,8 +54,28 @@ export default function Brands() {
     dispatch({
       type: dbActions.ADD_BRAND,
       payload: {
-        brand: {name: inputText},
+        brand: {
+          id: docRef.id,
+          data: {
+            name: inputText
+          }
+        },
       }
+    })
+  }
+
+  const handleDelete = async (id) => {
+    console.log(brandsCol, id)
+    try{
+      await deleteDoc(doc(db, "brands", id))
+    } catch(e){
+      console.log(e)
+      return
+    }
+
+    dispatch({
+      type: dbActions.DELETE_BRAND,
+      payload: {id}
     })
   }
 
@@ -63,8 +83,9 @@ export default function Brands() {
     <main className="min-h-screen p-24">
         <div className="grid grid-cols-4">
         {state.brands.map((brand) => 
-          <div key={brand.id} className='plant p-3 m-3 bg-white rounded'>
+          <div key={brand.id} className='plant p-3 m-3 rounded'>
             { brand.data['name'] }
+            <button onClick={() => { handleDelete(brand.id) }}>X</button>
           </div>
         )}
         </div>
