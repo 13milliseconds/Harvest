@@ -15,8 +15,19 @@ export default function Brands() {
   }, [])
 
   const loadBrands = async function (){
-    const brandsnapshot = await getDocs(brandsCol)
-    const brandList = brandsnapshot.docs.map(doc => doc.data())
+    let brandsnapshot
+
+    try{
+      brandsnapshot = await getDocs(brandsCol)
+    } catch(e){
+      console.log(e)
+      return
+    }
+
+    const brandList = brandsnapshot.docs.map(doc => {
+      return {id: doc.id, data: doc.data()}
+    })
+    console.log(brandList)
     dispatch({
       type: dbActions.LOAD_BRANDS,
       payload: {
@@ -49,18 +60,15 @@ export default function Brands() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-24">
-      <div className="z-10 w-full max-w-5xl items-center font-mono text-sm lg:flex">
-        Seed to Fruit
-      </div>
+    <main className="min-h-screen p-24">
         <div className="grid grid-cols-4">
         {state.brands.map((brand) => 
-          <div key={brand.ID} className='plant p-6 bg-white rounded'>
-            { brand['name'] }
+          <div key={brand.id} className='plant p-3 m-3 bg-white rounded'>
+            { brand.data['name'] }
           </div>
         )}
         </div>
-        <div className="add-form">
+        <div className="pt-6">
           <form onSubmit={(e)=>handleSubmit(e)}>
             <input type="text" value={inputText} onChange={(e)=> setinputText(e.target.value)}/>
             <input type="submit" value="Add Brand" className='' />

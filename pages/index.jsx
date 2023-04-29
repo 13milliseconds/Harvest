@@ -21,9 +21,6 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
-      <div className="z-10 w-full max-w-5xl items-center font-mono text-sm lg:flex">
-        Seed to Fruit
-      </div>
         <div className="grid grid-cols-4">
         {plants.map((plant) => 
           <div key={plant.ID} className='plant p-6 bg-white rounded'>
