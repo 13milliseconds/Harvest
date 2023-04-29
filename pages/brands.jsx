@@ -1,36 +1,30 @@
-import { db } from '../firebaseConfig';
-import { collection, doc, getDocs, addDoc, deleteDoc } from '@firebase/firestore';
+import axios from 'axios'
 import { dbDispatchContext, dbContext, dbActions } from '../context/databaseContext';
 import { useEffect, useContext, useState } from 'react';
+
+//components
+import Button from '../components/Button'
 
 
 export default function Brands() {
   const dispatch = useContext(dbDispatchContext)
   const state = useContext(dbContext)
-  const brandsCol = collection(db, 'brands')
+  
   const [inputText, setinputText] = useState('')
+  let APItest
 
   useEffect(() => {
     loadBrands()
   }, [])
 
   const loadBrands = async function (){
-    let brandsnapshot
+    const documents = await axios.get('/api/brands', {});
 
-    try{
-      brandsnapshot = await getDocs(brandsCol)
-    } catch(e){
-      console.log(e)
-      return
-    }
-
-    const brandList = brandsnapshot.docs.map(doc => {
-      return {id: doc.id, data: doc.data()}
-    })
     dispatch({
-      type: dbActions.LOAD_BRANDS,
+      type: dbActions.LOAD_DOCUMENTS,
       payload: {
-        brands: brandList,
+        documents: documents.data,
+        type: 'brands',
         loaded: true,
         loading: false
       }
@@ -39,6 +33,8 @@ export default function Brands() {
 
   const handleSubmit = async function(e){
     e.preventDefault()
+
+    if(!inputText) return;
 
     let docRef
     try{
@@ -52,9 +48,10 @@ export default function Brands() {
 
     setinputText('')
     dispatch({
-      type: dbActions.ADD_BRAND,
+      type: dbActions.ADD_DOCUMENT,
       payload: {
-        brand: {
+        type: 'brands',
+        document: {
           id: docRef.id,
           data: {
             name: inputText
@@ -65,7 +62,6 @@ export default function Brands() {
   }
 
   const handleDelete = async (id) => {
-    console.log(brandsCol, id)
     try{
       await deleteDoc(doc(db, "brands", id))
     } catch(e){
@@ -74,25 +70,43 @@ export default function Brands() {
     }
 
     dispatch({
-      type: dbActions.DELETE_BRAND,
-      payload: {id}
+      type: dbActions.DELETE_DOCUMENT,
+      payload: {
+        type: 'brands',
+        id
+      }
     })
   }
 
   return (
     <main className="min-h-screen p-24">
-        <div className="grid grid-cols-4">
-        {state.brands.map((brand) => 
-          <div key={brand.id} className='plant p-3 m-3 rounded'>
-            { brand.data['name'] }
-            <button onClick={() => { handleDelete(brand.id) }}>X</button>
-          </div>
+        <div className="">
+          {APItest}
+          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+              <tr>
+                <th scope="col" className="px-6 py-3">Name</th>
+                <th scope="col" className="px-6 py-3">Qty</th>
+                <th scope="col" className="px-6 py-3">Edit</th>
+                <th scope="col" className="px-6 py-3">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+        {state.brands.map((brand, index) => 
+            <tr key={brand.id} className={`${index % 2 == 0 ? 'bg-white' : 'bg-grey-50'} border-b`}>
+            <th scope="row" className="px-6 py-4">{ brand.data['name'] }</th>
+            <td className="px-6 py-4">0</td>
+            <td className="px-6 py-4"><Button onClick={() => { }} label="Edit" /></td>
+            <td className="px-6 py-4"><Button onClick={() => { handleDelete(brand.id) }} label="delete" /></td>
+          </tr>
         )}
+        </tbody>
+        </table>
         </div>
         <div className="pt-6">
           <form onSubmit={(e)=>handleSubmit(e)}>
             <input type="text" value={inputText} onChange={(e)=> setinputText(e.target.value)}/>
-            <input type="submit" value="Add Brand" className='' />
+            <input type="submit" value="Add Brand" className='bg-green-800 hover:bg-green-900 text-white font-bold py-2 px-4 rounded-full' />
           </form>
         </div>
     </main>

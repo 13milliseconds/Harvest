@@ -1,15 +1,17 @@
 import React, { createContext, useReducer} from 'react'
 
 export const dbActions = {
-    LOAD_BRANDS: 'LOAD_BRANDS',
-    ADD_BRAND: 'ADD_BRAND',
-    DELETE_BRAND: 'DELETE_BRAND'
+    // Generic
+    ADD_DOCUMENT: 'ADD_DOCUMENT',
+    DELETE_DOCUMENT: 'DELETE_DOCUMENT',
+    LOAD_DOCUMENTS: 'LOAD_DOCUMENTS',
   }
 
 const initialDatabaseState = {
     loaded: false,
     loading: true,
     brands: [],
+    plants: [],
     error: null
 }
 
@@ -28,23 +30,28 @@ export function DatabaseProvider ({ children }) {
     );
 }
   
-  function databaseReducer(database, action) {
+function databaseReducer(database, action) {
     switch (action.type) {
       case dbActions.LOAD_BRANDS: {
         return {...database,
           brands: action.payload.brands
         };
       }
-      case dbActions.ADD_BRAND: {
-        let newBrandList = [...database.brands, action.payload.brand]
+      case dbActions.LOAD_DOCUMENTS: {
         return {...database,
-          brands: newBrandList
+          [action.payload.type]: action.payload.documents
         };
       }
-      case dbActions.DELETE_BRAND: {
-        let newBrandList = database.brands.filter((brand) => { return brand.id !== action.payload.id })
+      case dbActions.ADD_DOCUMENT: {
+        let newDocumentList = [...database[action.payload.type], action.payload.document]
         return {...database,
-          brands: newBrandList
+          [action.payload.type]: newDocumentList
+        };
+      }
+      case dbActions.DELETE_DOCUMENT: {
+        let newDocumentList = database[action.payload.type].filter((document) => { return document.id !== action.payload.id })
+        return {...database,
+          [action.payload.type]: newDocumentList
         };
       }
       default: {
