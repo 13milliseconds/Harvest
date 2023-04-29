@@ -35,18 +35,14 @@ export default function Brands() {
     e.preventDefault()
 
     if(!inputText) return;
-
-    let docRef
-    try{
-      docRef = await addDoc(brandsCol, {
-        name: inputText,
-      });
-    } catch(e){
-      console.log(e)
-      return
-    }
-
     setinputText('')
+
+    const docRef = await axios.post('/api/brands', {
+      document: {
+        name: inputText,
+      }
+    });
+
     dispatch({
       type: dbActions.ADD_DOCUMENT,
       payload: {
@@ -62,12 +58,9 @@ export default function Brands() {
   }
 
   const handleDelete = async (id) => {
-    try{
-      await deleteDoc(doc(db, "brands", id))
-    } catch(e){
-      console.log(e)
-      return
-    }
+    if(!id) return
+
+    axios.delete(`/api/brands/${id}`);
 
     dispatch({
       type: dbActions.DELETE_DOCUMENT,
