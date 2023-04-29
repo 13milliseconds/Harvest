@@ -1,4 +1,4 @@
-import '@/styles/globals.css'
+import '../styles/globals.css'
 import { DatabaseProvider } from '../context/databaseContext'
 import Link from 'next/link'
 
