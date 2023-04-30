@@ -20,8 +20,8 @@ export default async (req,res) => {
   }
   
   if (req.method == 'POST') {
-    console.log(req.body.document)
-    const docRef = await addDoc(brandsCol, req.body.document);
+    console.log(req.body)
+    const docRef = await addDoc(brandsCol, req.body);
     
     res.status(200).json(docRef)
   }
