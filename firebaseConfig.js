@@ -6,7 +6,7 @@ import { getAuth } from "firebase/auth";
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCr7Svq5iaSbM-7TrJTs6HgUCwGOmBexUo",
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
   authDomain: "seedtofruit-54552.firebaseapp.com",
   projectId: "seedtofruit-54552",
   storageBucket: "seedtofruit-54552.appspot.com",
