@@ -1,12 +1,8 @@
-import { Formik, Form, Field, ErrorMessage, setSubmitting } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useSignIn } from '../../hooks/useAuth';
-import { useEffect } from 'react';
 
 export default function LoginForm(){
     const [loading, error, signIn] = useSignIn()
-
-    useEffect(() => {
-    }, loading)
 
     const validation = values => {
       const errors = {};
