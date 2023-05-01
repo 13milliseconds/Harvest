@@ -5,8 +5,7 @@ import { useSignUp } from '../../hooks/useAuth';
 export default function SignupForm(){
     const [loading, error, signUp] = useSignUp()
 
-    return <div className="p-6 bg-white">
-        <h1>Sign up</h1>
+    return <div className="p-6 bg-white dark:bg-slate-600">
         <Formik
        initialValues={{ email: '', password: '' }}
        validate={values => {
@@ -30,13 +29,16 @@ export default function SignupForm(){
      >
        {({ isSubmitting }) => (
          <Form>
-           <Field type="email" name="email" className="border"/>
-           <ErrorMessage name="email" component="div" />
-           <Field type="password" name="password" className="border"/>
+            <label htmlFor="email">Email Address</label>
+           <Field type="email" name="email" className="border block text-black p-1 mb-1"/>
+           <ErrorMessage name="email" component="div" className='text-red-500'/>
+           <label htmlFor="password">Password</label>
+           <Field type="password" name="password" className="border block text-black p-1  mb-1"/>
            <ErrorMessage name="password" component="div" />
-           <Field type="password" name="confirmpassword" className="border"/>
+           <label htmlFor="confirmpassword">Confirm Password</label>
+           <Field type="password" name="confirmpassword" className="border block text-black p-1 mb-1"/>
            <ErrorMessage name="confirmpassword" component="div" />
-           <button type="submit" disabled={isSubmitting}>
+           <button className="bg-yellow-500	text-black my-2 p-1 px-2 rounded" type="submit" disabled={isSubmitting}>
              Submit
            </button>
          </Form>

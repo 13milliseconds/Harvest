@@ -9,7 +9,7 @@ export default function BrandRow(props){
     const index = props.index
     const [loadingDelete, errorDelete, deleteBrand] = useDeleteDocument('brands')
 
-    return <tr key={brand.id} className={`${index % 2 == 0 ? 'bg-white' : 'bg-grey-50'} border-b`}>
+    return <tr key={brand.id} className={`${index % 2 == 0 ? 'bg-white' : 'bg-slate-50 dark:bg-slate-300'} border-b text-black`}>
     <th scope="row" className="px-6 py-4">{ brand.data['name'] }</th>
     <td className="px-6 py-4">0</td>
     <td className="px-6 py-4"><Link href={`/brands/${brand.id}`}>Edit</Link></td>

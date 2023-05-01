@@ -9,7 +9,7 @@ export default function PlantRow(props){
     const index = props.index
     const [loadingDelete, errorDelete, deletePlant] = useDeleteDocument('plants')
 
-    return <tr key={plant.id} className={`${index % 2 == 0 ? 'bg-white' : 'bg-grey-50'} border-b`}>
+    return <tr key={plant.id} className={`${index % 2 == 0 ? 'bg-white' : 'bg-slate-50 dark:bg-slate-300'} border-b text-black`}>
     <th scope="row" className="px-6 py-4">{ plant.data['common-name'] }</th>
     <td className="px-6 py-4">0</td>
     <td className="px-6 py-4"><Link href={`/plants/${plant.id}`}>Edit</Link></td>
