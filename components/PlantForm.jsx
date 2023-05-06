@@ -1,6 +1,13 @@
 import { dbContext } from '../context/databaseContext';
 import { useContext, useState, useEffect} from 'react';
 import { useGetDocuments, useAddDocument } from '../hooks/useAPI';
+import { 
+    Alert, 
+    Autocomplete, 
+    Button, 
+    Box, 
+    TextField 
+} from '@mui/material'
 
 
 export default function PlantForm(){
@@ -26,29 +33,32 @@ export default function PlantForm(){
         }
     }
 
-    return  <form onSubmit={(e)=>handleSubmit(e)}>
-    <label htmlFor="name">Name</label>
-    <input id="name" 
-        type="text" 
-        value={inputText} 
-        onChange={(e)=> setinputText(e.target.value)}
-        className="block p-1 mb-1 text-black"
-        />
-    <label htmlFor="brand">Brand</label>
-    <select className="block p-1 mb-1 text-black">
-        {loadingBrands ? <option disabled >Loading...</option>
-        : state.brands.documents?.map(brand => 
-            <option key={brand.id} value={brand.id}>{brand.data.name}</option>
-            )
+    let brandOptions = state.brands.documents
+    ?state.brands.documents.map(brand => { 
+        return {
+            label: brand.data.name,
+            value: brand.id,
         }
-    </select>
-    <input type="submit" 
-        value={loadingAdd ? 'Saving' : 'Add Plant'} 
-        className="bg-yellow-500 hover:bg-yellow-600 cursor-pointer text-black my-2 p-1 px-2 rounded" 
-    />
+    })
+    : []
+
+    return  <Box
+    component="form"
+    autoComplete="on"
+    >
+    <TextField id="name" label="Name" variant="outlined" value={inputText} 
+        onChange={(e)=> setinputText(e.target.value)} />
+    <Autocomplete
+        disablePortal
+        id="brandsSelect"
+        options={brandOptions}
+        sx={{ width: 300 }}
+        renderInput={(params) => <TextField {...params} label={loadingBrands ? "Loading" : "Brands"} />}
+        />
+    <Button variant="contained" onClick={(e)=>handleSubmit(e)}>{loadingAdd ? 'Saving' : 'Add Plant'}</Button>
     <div className="error">
-        <div className="load-error">{errorLoadingBrands}</div>
-        <div className="add-error">{errorAdd}</div>
+        {errorLoadingBrands && <Alert severity="error">{errorLoadingBrands}</Alert>}
+        {errorAdd && <Alert severity="error">{errorAdd}</Alert>}
     </div>
-  </form>
+    </Box>
 }

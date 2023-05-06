@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { useAuthState } from '../hooks/useAuth'
 
 import LoginForm from "../components/auth/LoginForm"
+import { Container, Link } from '@mui/material';
 
 export default function LoginPage () {
     const [loading, error, user] = useAuthState();
@@ -13,9 +13,9 @@ export default function LoginPage () {
         if(!loading && user) router.push('/')
       }, [user, loading])
 
-    return <div className="max-w-xl mx-auto my-20">
+    return <Container maxWidth="xs">
         <h1>Login</h1>
         <LoginForm />
         <Link href="/signup">Sign up instead</Link>
-    </div>
+    </Container>
 }

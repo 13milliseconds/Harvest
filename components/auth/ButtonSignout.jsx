@@ -1,9 +1,9 @@
 import { logout } from '../../firebaseConfig'
-import Button from '../Button'
+import Button from '@mui/material/Button'
 
 export default function ButtonSignout () {
 
     return <>
-    <Button label="Sign Out" onClick={() => logout()} />
+    <Button variant="contained" onClick={() => logout()} >Sign Out</Button>
     </>
 }

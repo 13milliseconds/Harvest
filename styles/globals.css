@@ -1,21 +1,8 @@
-@tailwind base;
+
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  h1 {
-    @apply text-xl;
-  }
-  h2 {
-    @apply text-xl;
-  }
-  h3 {
-    @apply text-lg;
-  }
-  a {
-    @apply underline;
-  }
-}
+@import '@fontsource/roboto/400.css';
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -33,10 +20,6 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
+  background: 
     rgb(var(--background-start-rgb));
 }

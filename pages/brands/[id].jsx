@@ -2,8 +2,8 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 
-//components
-import Link from 'next/link'
+//Components
+import Link from '@mui/material'
 
 export default function SingleBrand() {
   const router = useRouter()

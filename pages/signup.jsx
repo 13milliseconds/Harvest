@@ -2,7 +2,9 @@ import {useEffect} from 'react'
 import { useRouter } from 'next/router';
 import { useAuthState } from '../hooks/useAuth';
 import SignupForm from '../components/auth/SignupForm'
-import Link from 'next/link'
+
+//Components
+import Link from '@mui/material'
 
 export default function SignupPage () {
     const [loading, error, user] = useAuthState();

@@ -1,5 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useSignUp } from '../../hooks/useAuth';
+import Button from '@mui/material/Button';
 
 
 export default function SignupForm(){
@@ -38,9 +39,9 @@ export default function SignupForm(){
            <label htmlFor="confirmpassword">Confirm Password</label>
            <Field type="password" name="confirmpassword" className="border block text-black p-1 mb-1"/>
            <ErrorMessage name="confirmpassword" component="div" />
-           <button className="bg-yellow-500	text-black my-2 p-1 px-2 rounded" type="submit" disabled={isSubmitting}>
+           <Button variant="contained" type="submit" disabled={isSubmitting}>
              Submit
-           </button>
+           </Button>
          </Form>
        )}
      </Formik>

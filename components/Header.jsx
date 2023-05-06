@@ -1,17 +1,48 @@
 import { useAuthState } from '../hooks/useAuth';
-import Link from 'next/link'
+
+//Components
+import {
+  AppBar,
+  Container,
+  Menu,
+  MenuItem,
+  Toolbar,
+  Button,
+  Typography,
+  Link,
+  Box
+} from '@mui/material'
 
 export default function Header () {
   const [loading, error, user] = useAuthState();
 
-    return <header>
-    <div className="z-10 w-full max-w-5xl items-center font-mono text-sm md:flex">
-        <h1 className="md:flex-1"><Link href="/">Seed to Fruit</Link></h1>
-        { user && <ul className="flex">
-        <li className="px-6 py-1"><Link href="/plants">Plants</Link></li>
-        <li className="px-6 py-1"><Link href="/brands">Brands</Link></li>
-      </ul>
+    return <AppBar position='fixed'>
+    <Container maxWidth="xl">
+    <Toolbar disableGutters>
+    <Typography
+            variant="h6"
+            noWrap
+            component={Link}
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+              textTransform: 'uppercase'
+            }}
+          >
+            Seed to Fruit
+          </Typography>
+        { user && 
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+        <Button href="/plants">Plants</Button>
+        <Button href="/brands">Brands</Button>
+      </Box>
       }
-      </div>
-    </header>
+      </Toolbar>
+    </Container>
+    </AppBar>
 }

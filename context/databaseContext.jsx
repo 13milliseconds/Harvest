@@ -10,7 +10,7 @@ const initialDatabaseState = {
     },
     plants: {
       loaded: false, 
-      documents: []
+      documents: [] 
     },
     error: null
 }

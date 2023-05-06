@@ -1,6 +1,9 @@
 import { useState} from 'react';
 import { useAddDocument } from '../hooks/useAPI';
 
+// Components
+import { TextField, Button } from '@mui/material';
+
 
 export default function BrandForm(){
     const [inputText, setinputText] = useState('')
@@ -14,22 +17,17 @@ export default function BrandForm(){
         addRequest && setinputText('')  
     }
 
-    return  <form onSubmit={(e)=>handleSubmit(e)}>
-    <label htmlFor="name">Name</label>
-    <input 
+    return  <>
+    <TextField 
         id="name" 
         type="text" 
+        label="Name"
         value={inputText} 
         onChange={(e)=> setinputText(e.target.value)}
-        className="block p-1 mb-1 text-black"
     />
-    <input 
-        type="submit" 
-        value={loadingAdd ? 'Saving' : 'Add Brand'} 
-        className="bg-yellow-500 hover:bg-yellow-600 cursor-pointer text-black my-2 p-1 px-2 rounded" 
-    />
+    <Button variant="contained" onClick={(e)=>handleSubmit(e)} >{loadingAdd ? 'Saving' : 'Add Brand'} </Button>
     <div className="error">
         <div className="add-error">{errorAdd}</div>
     </div>
-  </form>
+  </>
 }

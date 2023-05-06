@@ -1,5 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useSignIn } from '../../hooks/useAuth';
+import Button from '@mui/material/Button'
 
 export default function LoginForm(){
     const [loading, error, signIn] = useSignIn()
@@ -33,9 +34,9 @@ export default function LoginForm(){
            <label htmlFor="password">Password</label>
            <Field type="password" name="password" className="border block text-black p-1 mb-1"/>
            <ErrorMessage name="password" component="div" />
-           <button className="bg-yellow-500	text-black my-2 p-1 px-2 rounded" type="submit" disabled={isSubmitting}>
+           <Button variant="contained" type="submit" disabled={isSubmitting}>
              Submit
-           </button>
+           </Button>
          </Form>
        )}
      </Formik>
