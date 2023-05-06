@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 
 //Components
-import Link from '@mui/material'
+import { Link } from '@mui/material'
 
 export default function SingleBrand() {
   const router = useRouter()

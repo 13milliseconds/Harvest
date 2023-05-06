@@ -9,7 +9,6 @@ export default async function (req,res) {
 
   const id = req.query.id
   const docRef = doc(db, 'plants', id);
-  console.log(req.query)
   
   if(req.method == 'DELETE'){
     await deleteDoc(docRef)

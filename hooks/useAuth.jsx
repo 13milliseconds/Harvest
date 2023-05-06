@@ -8,16 +8,20 @@ export const useSignIn =  () => {
 
   const signIn = async(values) => {
     setLoading(true)
+    setError('')
     signInWithEmailAndPassword(auth, values.email, values.password)
       .then((userCredential) => {
         // Signed in 
         const user = userCredential.user;
-        console.log(user.uid)
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        setError(`Error #${errorCode}: ${errorMessage}`)
+        setLoading(false)
+        setError({
+          log: `Error #${errorCode}: ${errorMessage}`,
+          status: true
+        })
       });
   }
 

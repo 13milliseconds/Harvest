@@ -3,7 +3,11 @@ import { useRouter } from 'next/router';
 import { useAuthState } from '../hooks/useAuth'
 
 import LoginForm from "../components/auth/LoginForm"
-import { Container, Link } from '@mui/material';
+import { 
+    Container, 
+    Link,
+    Typography
+ } from '@mui/material';
 
 export default function LoginPage () {
     const [loading, error, user] = useAuthState();
@@ -14,7 +18,9 @@ export default function LoginPage () {
       }, [user, loading])
 
     return <Container maxWidth="xs">
-        <h1>Login</h1>
+        <Typography variant="h4">
+        Login
+        </Typography>
         <LoginForm />
         <Link href="/signup">Sign up instead</Link>
     </Container>

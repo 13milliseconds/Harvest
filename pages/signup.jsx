@@ -4,7 +4,7 @@ import { useAuthState } from '../hooks/useAuth';
 import SignupForm from '../components/auth/SignupForm'
 
 //Components
-import Link from '@mui/material'
+import { Link } from '@mui/material'
 
 export default function SignupPage () {
     const [loading, error, user] = useAuthState();
