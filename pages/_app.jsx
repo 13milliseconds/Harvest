@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import { DatabaseProvider } from '../context/databaseContext'
+import { AuthContextProvider } from '../context/authContext'
 import Header from '../components/Header'
 import {theme} from '../context/themeContext'
 import { ThemeProvider } from '@emotion/react'
@@ -10,6 +11,7 @@ import {
 
 export default function App({ Component, pageProps }) {
   return <DatabaseProvider>
+    <AuthContextProvider>
     <ThemeProvider theme={theme}>
     <Header />
     <Box component="main">
@@ -17,5 +19,6 @@ export default function App({ Component, pageProps }) {
       <Component {...pageProps} />
     </Box>
     </ThemeProvider>
+    </AuthContextProvider>
   </DatabaseProvider>
 }

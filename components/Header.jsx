@@ -1,4 +1,5 @@
-import { useAuthState } from '../hooks/useAuth';
+import { useAuth } from '../context/authContext'
+import { useState } from 'react'
 
 //Components
 import {
@@ -10,11 +11,23 @@ import {
   Button,
   Typography,
   Link,
-  Box
+  Box,
+  IconButton
 } from '@mui/material'
+import {AccountCircle} from '@mui/icons-material'
 
 export default function Header () {
-  const [loading, error, user] = useAuthState();
+  const user = useAuth()
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  }
+  
+  const handleClose = () => {
+    setAnchorEl(null);
+  }
+
 
     return <AppBar position='fixed'>
     <Container maxWidth="xl">
@@ -42,6 +55,35 @@ export default function Header () {
         <Button href="/brands">Brands</Button>
       </Box>
       }
+      <IconButton
+      size="large"
+      aria-label="account of current user"
+      aria-controls="menu-appbar"
+      aria-haspopup="true"
+      onClick={handleMenu}
+      color="inherit"
+    >
+      <AccountCircle />
+    </IconButton>
+    <Menu
+      id="menu-appbar"
+      anchorEl={anchorEl}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={Boolean(anchorEl)}
+      onClose={handleClose}
+    >
+      <MenuItem href='/profile'>Profile</MenuItem>
+      <MenuItem href='/account'>My account</MenuItem>
+      <MenuItem href='/signout'>Sign Out</MenuItem>
+    </Menu>
       </Toolbar>
     </Container>
     </AppBar>

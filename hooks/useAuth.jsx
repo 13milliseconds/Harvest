@@ -96,10 +96,7 @@ export const useAuthState = () => {
   const [user, setUser] = useState(null)
 
   onAuthStateChanged(auth, (user) => {
-    setLoading(false)
-
     if (user) {
-      const uid = user.uid;
       setUser(user)
     } else {
       setUser(null)
