@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
-import { auth } from '../firebaseConfig';
+import { db } from "../context/authContext";
+import { collection, addDoc } from '@firebase/firestore';
+import { auth } from '../context/authContext';
 
 export const useSignIn =  () => {
   const [loading, setLoading] = useState(false)
@@ -39,7 +41,6 @@ export const useSignOut =  () => {
 
   
   const signOut =  async () => {
-    //TODO: figure out why this runs forever
     setLoading(true)
     console.log('signing out')
 
@@ -66,6 +67,7 @@ export const useSignOut =  () => {
 export const useSignUp = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
+  const usersCol = collection(db, 'users')
 
   const signUp = async(values) => {
     setLoading(true)
@@ -74,12 +76,23 @@ export const useSignUp = () => {
               // Signed in 
               setLoading(false)
               const user = userCredential.user;
-              console.log(user.uid)
+              
+              // Create a user profile
+              const docRef = addDoc(usersCol, {
+                id: user.uid,
+                email: user.email
+              });
+              
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setError(`Error #${errorCode}: ${errorMessage}`)
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              setLoading(false)
+              setError({
+                code: errorCode,
+                log: `Error #${errorCode}: ${errorMessage}`,
+                status: true
+              })
             });
   }
 
@@ -91,7 +104,6 @@ export const useSignUp = () => {
 };
 
 export const useAuthState = () => {
-  const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
   const [user, setUser] = useState(null)
 
@@ -106,7 +118,6 @@ export const useAuthState = () => {
   
 
   return[
-    loading, 
     error, 
     user
   ]

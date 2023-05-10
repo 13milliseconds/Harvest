@@ -1,23 +1,21 @@
 import {useEffect} from 'react'
 import { useRouter } from 'next/router';
-import { useAuthState } from '../hooks/useAuth';
-import ButtonSignout from '../components/auth/ButtonSignout';
+import { useAuth } from '../context/authContext';
 
 export default function Home() {
-  const [loading, error, user] = useAuthState();
+  const user = useAuth()
   const router = useRouter()
 
   useEffect(()=>{
-    if(!loading && !user) router.push('/login')
-  }, [user, loading])
+    console.log(user)
+    if(!user) router.push('/login')
+  }, [user])
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
-      {loading && <div>Loading...</div>}
 
        {user && <div>
           Congratulations User: {user.email}
-          <ButtonSignout />
           </div> 
       }
       

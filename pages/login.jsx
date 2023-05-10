@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router';
-import { useAuthState } from '../hooks/useAuth'
+import { useAuth } from '../context/authContext';
 
 import LoginForm from "../components/auth/LoginForm"
 import { 
@@ -10,12 +10,12 @@ import {
  } from '@mui/material';
 
 export default function LoginPage () {
-    const [loading, error, user] = useAuthState();
+    const user = useAuth()
     const router = useRouter()
 
     useEffect(()=>{
-        if(!loading && user) router.push('/')
-      }, [user, loading])
+        if(user) router.push('/')
+      }, [user])
 
     return <Container maxWidth="xs">
         <Typography variant="h4">

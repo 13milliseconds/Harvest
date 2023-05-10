@@ -1,4 +1,4 @@
-import { db } from '../../../firebaseConfig';
+import { db } from '../../../context/authContext';
 import { doc, getDoc, deleteDoc } from '@firebase/firestore';
 
 export default async function (req,res) {

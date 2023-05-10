@@ -1,4 +1,4 @@
-import { db } from '../../../firebaseConfig';
+import { db } from '../../../context/authContext';
 import { collection, getDocs, addDoc } from '@firebase/firestore';
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 

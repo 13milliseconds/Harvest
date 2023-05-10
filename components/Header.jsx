@@ -1,5 +1,6 @@
-import { useAuth } from '../context/authContext'
+import { useAuth, logout } from '../context/authContext'
 import { useState } from 'react'
+import Router from 'next/router'
 
 //Components
 import {
@@ -25,7 +26,13 @@ export default function Header () {
   }
   
   const handleClose = () => {
-    setAnchorEl(null);
+    setAnchorEl(null)
+  }
+
+  const handleLogout = () => {
+    setAnchorEl(null)
+    Router.push('/')
+    logout()
   }
 
 
@@ -54,15 +61,16 @@ export default function Header () {
         <Button href="/plants">Plants</Button>
         <Button href="/brands">Brands</Button>
       </Box>
-      }
+        }
+        { user && <div>
       <IconButton
       size="large"
       aria-label="account of current user"
-      aria-controls="menu-appbar"
-      aria-haspopup="true"
-      onClick={handleMenu}
-      color="inherit"
-    >
+        aria-controls="menu-appbar"
+        aria-haspopup="true"
+        onClick={handleMenu}
+        color="inherit"
+      >
       <AccountCircle />
     </IconButton>
     <Menu
@@ -80,10 +88,11 @@ export default function Header () {
       open={Boolean(anchorEl)}
       onClose={handleClose}
     >
-      <MenuItem href='/profile'>Profile</MenuItem>
-      <MenuItem href='/account'>My account</MenuItem>
-      <MenuItem href='/signout'>Sign Out</MenuItem>
+      <MenuItem component="Link" href='/account'>My account</MenuItem>
+      <MenuItem onClick={handleLogout}>Sign Out</MenuItem>
     </Menu>
+    </div>
+    }
       </Toolbar>
     </Container>
     </AppBar>
