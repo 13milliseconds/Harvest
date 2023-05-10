@@ -1,31 +1,31 @@
 import {useEffect, useContext} from 'react'
-import { useRouter } from 'next/router';
 import { useAuth } from '../context/authContext';
 import { dbContext } from '../context/databaseContext'
 import { useGetUser } from '../hooks/useAPI'
-
-import { Container } from '@mui/material';
+import { 
+    Container,
+    Typography
+ } from '@mui/material';
 
 export default function Home() {
   const userAuth = useAuth()
-  const router = useRouter()
   const { user } = useContext(dbContext)
   const [ loading, error, getUser ] = useGetUser()
-  console.log(user)
+
+  if(error) console.log(error)
 
   useEffect(()=>{
-    if(!userAuth) {
-      router.push('/login')
-    } else {
       if (!user.loaded) getUser(userAuth.uid)
-    }
-  }, [userAuth, user])
+  }, [userAuth])
 
   return (
     <Container maxWidth="lg">
 
-       {!loading && <div>
-          Congratulations {user.email}
+       {loading 
+       ? <div>Loading...</div>
+       :<div>
+            <Typography variant="h1" >My Account</Typography>
+            <p>Email: {user.email}</p>
           </div> 
       }
       

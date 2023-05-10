@@ -4,6 +4,9 @@ import {databaseReducer} from './databaseReducer'
 const initialDatabaseState = {
     loaded: false,
     loading: true,
+    user: {
+      loaded: false,
+    },
     brands: {
       loaded: false, 
       documents: []

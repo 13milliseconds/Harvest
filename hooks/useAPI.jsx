@@ -123,3 +123,34 @@ export const useDeleteDocument = (type) => {
     deleteDocument
   ]
 }
+
+export const useGetUser = () => {
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const dispatch = useContext(dbDispatchContext)
+
+  const getUser = async (id) => {
+    
+    try {
+      setLoading(true)
+      const document = await axios.get(`/api/user/${id}`);
+      console.log(id, document)
+      dispatch({
+        type: dbActions.LOAD_USER,
+        payload: {
+          user: document.data,
+        }
+        })
+    } catch (err) {
+      setError(err.message || "Unexpected Error!");
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return[
+    loading, 
+    error,
+    getUser
+  ]
+}

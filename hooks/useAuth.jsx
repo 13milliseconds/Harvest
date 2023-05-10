@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
 import { db } from "../context/authContext";
-import { collection, addDoc } from '@firebase/firestore';
+import { doc, setDoc } from '@firebase/firestore';
 import { auth } from '../context/authContext';
 
 export const useSignIn =  () => {
@@ -67,7 +67,6 @@ export const useSignOut =  () => {
 export const useSignUp = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
-  const usersCol = collection(db, 'users')
 
   const signUp = async(values) => {
     setLoading(true)
@@ -78,10 +77,9 @@ export const useSignUp = () => {
               const user = userCredential.user;
               
               // Create a user profile
-              const docRef = addDoc(usersCol, {
-                id: user.uid,
+              const docRef = setDoc(doc(db, 'users', user.uid), {
                 email: user.email
-              });
+              }, { merge: true })
               
             })
             .catch((error) => {
