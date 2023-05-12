@@ -34,3 +34,11 @@ export default function SinglePlant() {
     </main>
   )
 }
+
+export async function getStaticProps(context) {
+  return {
+    props: {
+      protected: true,
+    },
+  }
+}

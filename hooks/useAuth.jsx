@@ -1,8 +1,7 @@
 import { useState } from "react"
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} from "firebase/auth";
-import { db } from "../context/authContext";
+import { db, auth } from "../context/authContext";
 import { doc, setDoc } from '@firebase/firestore';
-import { auth } from '../context/authContext';
 
 export const useSignIn =  () => {
   const [loading, setLoading] = useState(false)
@@ -103,19 +102,23 @@ export const useSignUp = () => {
 
 export const useAuthState = () => {
   const [error, setError] = useState("")
+  const [loading, setLoading] = useState(true)
   const [user, setUser] = useState(null)
 
-  onAuthStateChanged(auth, (user) => {
+  if(auth) onAuthStateChanged(auth, (user) => {
+      setLoading(true)
     if (user) {
       setUser(user)
+      setLoading(false)
     } else {
       setUser(null)
+      setLoading(false)
       setError('No user logged in')
     }
   });
   
-
   return[
+    loading,    
     error, 
     user
   ]

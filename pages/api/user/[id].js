@@ -1,5 +1,5 @@
-import { db } from '../../../context/authContext';
-import { doc, getDoc, deleteDoc } from '@firebase/firestore';
+import { db } from '../../../context/authContext'
+import { doc, getDoc, deleteDoc } from '@firebase/firestore'
 
 export default async function (req,res) {
   // if (req.method !== 'GET') {
@@ -11,7 +11,9 @@ export default async function (req,res) {
   const docRef = doc(db, 'users', id);
   
   if(req.method == 'DELETE'){
-    await deleteDoc(docRef)
+
+    //TODO: FIX THIS MESS
+      deleteDoc(docRef)
     
     res.status(200).json({success: true})
   }

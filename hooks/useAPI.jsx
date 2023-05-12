@@ -2,6 +2,8 @@ import axios from 'axios'
 import { dbDispatchContext } from '../context/databaseContext';
 import {dbActions} from '../context/databaseReducer'
 import { useState, useContext } from "react";
+import { deleteUser } from '@firebase/auth'
+import {auth} from '../context/authContext'
 
 export const useAPI =  (apiFunc) => {
   const [data, setData] = useState(null);
@@ -134,7 +136,6 @@ export const useGetUser = () => {
     try {
       setLoading(true)
       const document = await axios.get(`/api/user/${id}`);
-      console.log(id, document)
       dispatch({
         type: dbActions.LOAD_USER,
         payload: {
@@ -152,5 +153,37 @@ export const useGetUser = () => {
     loading, 
     error,
     getUser
+  ]
+}
+
+export const useDeleteAccount = () => {
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const dispatch = useContext(dbDispatchContext)
+  const user = auth.currentUser
+
+  const deleteAccount = async (id) => {
+
+    console.log(id)
+    
+    try {
+      setLoading(true)
+      deleteUser(user)
+      await axios.delete(`/api/user/${id}`)
+      dispatch({
+        type: dbActions.DELETE_USER,
+        payload: {}
+        })
+    } catch (err) {
+      setError(err.message || "Unexpected Error!");
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return[
+    loading, 
+    error,
+    deleteAccount
   ]
 }

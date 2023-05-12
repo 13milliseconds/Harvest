@@ -1,6 +1,5 @@
 import {useEffect} from 'react'
 import { useRouter } from 'next/router';
-import { useAuthState } from '../hooks/useAuth';
 import SignupForm from '../components/auth/SignupForm'
 
 //Components
@@ -9,9 +8,10 @@ import {
     Typography,
     Link 
 } from '@mui/material'
+import { useAuth } from '../context/authContext';
 
 export default function SignupPage () {
-    const [ error, user] = useAuthState();
+    const {user} = useAuth()
     const router = useRouter()
 
     useEffect(()=>{

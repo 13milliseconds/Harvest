@@ -5,6 +5,7 @@ export const dbActions = {
     DELETE_DOCUMENT: 'DELETE_DOCUMENT',
     LOAD_DOCUMENTS: 'LOAD_DOCUMENTS',
     LOAD_USER: 'LOAD_USER',
+    DELETE_USER: 'DELETE_USER',
   }
 
 export function databaseReducer(database, action) {
@@ -34,6 +35,13 @@ export function databaseReducer(database, action) {
           user: {
             loaded: true,
             ...action.payload.user
+          }
+        };
+      }
+      case dbActions.DELETE_USER: {
+        return {...database,
+          user: {
+            loaded: false
           }
         };
       }

@@ -10,7 +10,7 @@ import {
  } from '@mui/material';
 
 export default function LoginPage () {
-    const user = useAuth()
+    const {user} = useAuth()
     const router = useRouter()
 
     useEffect(()=>{

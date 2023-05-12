@@ -88,7 +88,7 @@ export default function Header () {
       open={Boolean(anchorEl)}
       onClose={handleClose}
     >
-      <MenuItem component={Link} href='/account'>My account</MenuItem>
+      <MenuItem component={Link} href='/account' onClick={handleClose}>My account</MenuItem>
       <MenuItem onClick={handleLogout}>Sign Out</MenuItem>
     </Menu>
     </div>
