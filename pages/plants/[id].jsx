@@ -1,31 +1,9 @@
-import axios from 'axios'
-import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
+import { getAllDocumentsID, getSingleDocument } from '../../lib/requests'
 
 //Components
 import { Link } from '@mui/material'
 
-export default function SinglePlant() {
-  const router = useRouter()
-  const { id } = router.query
-  const [plant, setPlant] = useState({id})
-
-  useEffect(() => {
-    if (router.isReady) getPlant()
-  }, [router.isReady])
-    
-  const getPlant = async function (){
-    console.log('getPlant')
-    
-    try{
-      const documentQuery = await axios.get(`/api/plants/${id}`);
-      console.log(documentQuery.data)
-      setPlant(documentQuery.data)
-    } catch(e){
-      console.log(e)
-      return
-    }
-  }
+export default function SinglePlant({plant}) {
 
   return (
     <main className="min-h-screen p-24">
@@ -35,10 +13,31 @@ export default function SinglePlant() {
   )
 }
 
-export async function getStaticProps(context) {
-  return {
-    props: {
-      protected: true,
-    },
+export async function getStaticProps({params}) {
+
+  try {
+    const plant = await getSingleDocument('plants', params.id)
+    return {
+        props: {
+            plant,
+            protected: true,
+        }
+    }
+  } catch (error) {
+      console.log(error);
   }
+}
+
+export async function getStaticPaths() {
+  const plants = await getAllDocumentsID('plants')
+
+  // Get the paths we want to prerender
+  const paths = plants.map((plant) => ({
+    params: { id: plant.id },
+  }))
+
+  return {
+    paths,
+    fallback: false, 
+  };
 }
