@@ -19,7 +19,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - Full form for new seeds
 - Create/edit gardens
 
-##Tools
+## Tools
 Here a a few tools used to develop this web application:
 - React, Next.js
 - Firebase Authentication and Firestore, Axios 
