@@ -24,7 +24,7 @@ export default function PlantForm(){
         e.preventDefault()
         try{
             await addPlant({
-                'common-name': inputText,
+                'name': inputText,
             })
             setinputText('')  
         } catch(e){

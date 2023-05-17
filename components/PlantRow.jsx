@@ -14,7 +14,7 @@ export default function PlantRow(props){
 
     return <TableRow key={plant.id} className={`${index % 2 == 0 ? 'bg-white' : 'bg-slate-50 dark:bg-slate-300'} border-b text-black`}>
     <TableCell scope="row" className="px-6 py-4">
-      { plant.data['common-name'] }
+      { plant.data['name'] }
     </TableCell>
     <TableCell className="px-6 py-4">0</TableCell>
     <TableCell className="px-6 py-4">
