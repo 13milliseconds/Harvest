@@ -18,7 +18,7 @@ export default function SelectForm ({name, label, value, options, onChange}){
       onChange={onChange}
     >
         {
-            options.map((option) => <MenuItem value={option.value}>{ option.label }</MenuItem>)
+            options.map((option) => <MenuItem key={option.value} value={option.value}>{ option.label }</MenuItem>)
         }
     </Select>
     </FormGroup>
