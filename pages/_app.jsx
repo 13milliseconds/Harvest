@@ -4,24 +4,15 @@ import { AuthContextProvider, useAuth } from '../context/authContext'
 import { DatabaseProvider } from '../context/databaseContext'
 import Header from '../components/Header'
 import {theme} from '../context/themeContext'
-import { useAuthState } from '../hooks/useAuth'
 import { ThemeProvider } from '@emotion/react'
+import AuthWrapper from '../components/AuthWrapper'
 import {
   Box,
   Toolbar
 } from '@mui/material'
 
 export default function App({ Component, pageProps }) {
-  const router = useRouter()
-  const [loading, error, user] = useAuthState()
 
-  if(error) console.log(error)
-
-  if(loading) return <div>Loading</div>
-
-  if (pageProps.protected && !user){
-      if(router.isReady) router.push('/login')
-    }
 
   return <AuthContextProvider>
   <DatabaseProvider>
@@ -29,7 +20,9 @@ export default function App({ Component, pageProps }) {
     <Header />
     <Box component="main">
       <Toolbar />
-      <Component {...pageProps} />
+      <AuthWrapper>
+        <Component {...pageProps} />
+      </AuthWrapper>
     </Box>
     </ThemeProvider>
   </DatabaseProvider>

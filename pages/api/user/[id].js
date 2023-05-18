@@ -1,5 +1,6 @@
 import { db } from '../../../context/authContext'
 import { doc, getDoc, deleteDoc } from '@firebase/firestore'
+import { auth } from '../../../lib/firebase-admin';
 
 export default async function (req,res) {
   // if (req.method !== 'GET') {

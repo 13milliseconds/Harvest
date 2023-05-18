@@ -3,7 +3,8 @@ import { dbDispatchContext } from '../context/databaseContext';
 import {dbActions} from '../context/databaseReducer'
 import { useState, useContext } from "react";
 import { deleteUser } from '@firebase/auth'
-import {auth} from '../context/authContext'
+import {db, auth} from '../context/authContext'
+import { doc, getDoc, deleteDoc } from '@firebase/firestore'
 
 export const useAPI =  (apiFunc) => {
   const [data, setData] = useState(null);
@@ -132,14 +133,16 @@ export const useGetUser = () => {
   const dispatch = useContext(dbDispatchContext)
 
   const getUser = async (id) => {
-    
     try {
       setLoading(true)
-      const document = await axios.get(`/api/user/${id}`);
+
+      const docRef = doc(db, 'users', id);
+      const docSnap = await getDoc(docRef)
+      // const document = await axios.get(`/api/user/${id}`);
       dispatch({
         type: dbActions.LOAD_USER,
         payload: {
-          user: document.data,
+          user: docSnap.data(),
         }
         })
     } catch (err) {
@@ -164,12 +167,12 @@ export const useDeleteAccount = () => {
 
   const deleteAccount = async (id) => {
 
-    console.log(id)
+    const docRef = doc(db, 'users', id);
     
     try {
       setLoading(true)
       deleteUser(user)
-      await axios.delete(`/api/user/${id}`)
+      await deleteDoc(docRef)
       dispatch({
         type: dbActions.DELETE_USER,
         payload: {}

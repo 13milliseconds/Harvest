@@ -22,9 +22,10 @@ export default function Home() {
 
   useEffect(()=>{
       if (!user.loaded) getUser(userAuth.uid)
-  }, [userAuth])
+  }, [])
 
   //Log Errors
+  console.log(user)
   if(error) console.log(error)
   if(errorDelete) console.log(errorDelete)
 

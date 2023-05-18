@@ -4,7 +4,7 @@ import { dbContext } from '../context/databaseContext'
 import { useGetUser } from '../hooks/useAPI'
 
 
-import { Container } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 
 export default function Home() {
   const {user: userAuth} = useAuth()
@@ -14,17 +14,17 @@ export default function Home() {
   if(error) console.log(error)
 
   useEffect(() => {
-    console.log(user, userAuth)
       if(!user.loaded)
         getUser(userAuth.uid)
     }, [userAuth])
 
+  if (loading) return <div>Loading...</div>
+
   return (
     <Container maxWidth="lg">
-       {!loading && <div>
+        <Typography variant="h6">
           Congratulations {user.email}
-          </div> 
-      }
+        </Typography>
     </Container>
   )
 }
