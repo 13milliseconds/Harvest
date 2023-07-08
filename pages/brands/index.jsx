@@ -14,6 +14,7 @@ import {
   Alert
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
+import TypoTitle from '../../components/typography/title';
 
 
 export default function PlantsPage() {
@@ -40,6 +41,7 @@ export default function PlantsPage() {
 
   return (
     <Container maxWidth="lg">
+        <TypoTitle text="Brands" />
         <BrandsTable />
         <Fab 
           color="primary" 

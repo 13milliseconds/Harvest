@@ -33,7 +33,6 @@ const AuthContextProvider = ({ children }) => {
   
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, firebaseUser => {
-        console.log('in AUTH', firebaseUser)
         setLoading(true);
         if (firebaseUser) {
           setUser(firebaseUser)

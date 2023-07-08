@@ -1,5 +1,4 @@
 import '../styles/globals.css'
-import { useRouter } from 'next/router'
 import { AuthContextProvider, useAuth } from '../context/authContext'
 import { DatabaseProvider } from '../context/databaseContext'
 import Header from '../components/Header'
@@ -12,7 +11,8 @@ import {
 } from '@mui/material'
 
 export default function App({ Component, pageProps }) {
-
+  const user = useAuth()
+  console.log(user)
 
   return <AuthContextProvider>
   <DatabaseProvider>

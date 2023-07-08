@@ -7,16 +7,10 @@ import { useGetUser } from '../hooks/useAPI'
 import { Container, Typography } from '@mui/material';
 
 export default function Home() {
-  const {user: userAuth} = useAuth()
   const { user } = useContext(dbContext)
   const [ loading, error, getUser ] = useGetUser()
 
   if(error) console.log(error)
-
-  useEffect(() => {
-      if(!user.loaded)
-        getUser(userAuth.uid)
-    }, [userAuth])
 
   if (loading) return <div>Loading...</div>
 

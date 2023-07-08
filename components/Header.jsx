@@ -1,6 +1,8 @@
 import { useAuth, logout } from '../context/authContext'
-import { useState } from 'react'
+import { dbContext } from '../context/databaseContext'
+import { useState, useContext, useEffect } from 'react'
 import Router from 'next/router'
+import { useGetUser } from '../hooks/useAPI'
 
 //Components
 import {
@@ -18,8 +20,15 @@ import {
 import {AccountCircle} from '@mui/icons-material'
 
 export default function Header () {
-  const user = useAuth()
+  const {user: userAuth} = useAuth()
+  const {user} = useContext(dbContext)
   const [anchorEl, setAnchorEl] = useState(null);
+  const [ loading, error, getUser ] = useGetUser()
+
+  useEffect(() => {
+    if(!user.loaded)
+      getUser(userAuth.uid)
+  }, [])
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -54,15 +63,17 @@ export default function Header () {
               textTransform: 'uppercase'
             }}
           >
-            Seed to Fruit
+            Harvest
           </Typography>
-        { user && 
+        { user.loaded && 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-        <Button href="/plants">Plants</Button>
-        <Button href="/brands">Brands</Button>
-      </Box>
+            <Button href="/plants">Plants</Button>
+            <Button href="/brands">Brands</Button>
+            <Button href="/library">My Plants</Button>
+            { user.admin && <Button href="/users">Users</Button>}
+          </Box>
         }
-        { user && <div>
+        { user.loaded && <div>
       <IconButton
       size="large"
       aria-label="account of current user"

@@ -51,18 +51,20 @@ export default function SinglePlant({plant}) {
         <Typography variant="h1">{plant['name']}</Typography>
 
         <FormControl fullWidth>
-
         <SelectForm 
           name="exposure" 
           label="Exposure"
           value={state.exposure}
           onChange={handleChange}
+          className="pb-2"
           options={[
             {value: 'fullSun', label: 'Full Sun'},
             {value: 'partSun', label: 'Part Sun'},
             {value: 'fullShade', label: 'Full Shade'}
         ]} />
+        </FormControl>
 
+        <FormControl fullWidth>
         <SelectForm 
           name="plantingDepth" 
           label="Planting Depth"
@@ -72,8 +74,8 @@ export default function SinglePlant({plant}) {
             {value: '.25', label: '1/4"'},
             {value: '.5', label: '1/2"'},
             {value: '1', label: '1"'}
-        ]} />
-        </FormControl>
+          ]} />
+          </FormControl>
 
         <FormGroup>
         <FormControlLabel 
