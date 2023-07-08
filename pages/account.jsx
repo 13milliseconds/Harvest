@@ -1,6 +1,6 @@
 import {useEffect, useContext, useState} from 'react'
-import { useAuth } from '../context/authContext';
-import { dbContext } from '../context/databaseContext'
+import { useAuth } from '@/context/authContext';
+import { dbContext } from '@/context/databaseContext'
 import { useGetUser, useDeleteAccount } from '../hooks/useAPI'
 import { 
     Button,

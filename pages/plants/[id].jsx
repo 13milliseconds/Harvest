@@ -13,8 +13,8 @@ import {
   Box,
   Breadcrumbs
 } from '@mui/material'
-import SelectForm from '../../components/forms/selectForm'
-import RangeForm from '../../components/forms/rangeForm'
+import SelectForm from '@/components/forms/selectForm'
+import RangeForm from '@/components/forms/rangeForm'
 
 export default function SinglePlant({plant}) {
   const [state, setState] = useState(plant)

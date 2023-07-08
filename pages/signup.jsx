@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 import { useRouter } from 'next/router';
-import SignupForm from '../components/auth/SignupForm'
+import SignupForm from '@/components/auth/SignupForm'
 
 //Components
 import { 
@@ -8,7 +8,7 @@ import {
     Typography,
     Link 
 } from '@mui/material'
-import { useAuth } from '../context/authContext';
+import { useAuth } from '@/context/authContext';
 
 export default function SignupPage () {
     const {user} = useAuth()

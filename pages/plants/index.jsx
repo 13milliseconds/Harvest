@@ -1,8 +1,8 @@
 //components
-import FormPlant from '../../components/PlantForm';
-import TablePlants from '../../components/PlantsTable';
+import FormPlant from '@/components/PlantForm';
+import TablePlants from '@/components/PlantsTable';
 import Container from '@mui/material/Container';
-import TypoTitle from '../../components/typography/title';
+import TypoTitle from '@/components/typography/title';
 
 
 export default function PlantsPage() {

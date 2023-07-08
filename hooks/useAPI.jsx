@@ -1,8 +1,8 @@
-import { dbDispatchContext } from '../context/databaseContext';
-import {dbActions} from '../context/databaseReducer'
+import { dbDispatchContext } from '@/context/databaseContext';
+import {dbActions} from '@/context/databaseReducer'
 import { useState, useContext } from "react";
 import { deleteUser } from '@firebase/auth'
-import {db, auth} from '../context/authContext'
+import {db, auth} from '@/context/authContext'
 import { 
   doc, 
   collection, 

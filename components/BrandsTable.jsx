@@ -1,4 +1,4 @@
-import { dbContext } from '../context/databaseContext';
+import { dbContext } from '@/context/databaseContext';
 import { useContext, useEffect} from 'react';
 import { useGetDocuments } from '../hooks/useAPI'
 

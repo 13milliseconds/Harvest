@@ -1,6 +1,6 @@
 //components
 import { useState } from 'react';
-import BrandsTable from '../../components/BrandsTable';
+import BrandsTable from '@/components/BrandsTable';
 import { useAddDocument } from '../../hooks/useAPI';
 import {
   Container,
@@ -14,7 +14,7 @@ import {
   Alert
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add';
-import TypoTitle from '../../components/typography/title';
+import TypoTitle from '@/components/typography/title';
 
 
 export default function PlantsPage() {

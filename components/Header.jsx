@@ -1,5 +1,5 @@
-import { useAuth, logout } from '../context/authContext'
-import { dbContext } from '../context/databaseContext'
+import { useAuth, logout } from '@/context/authContext'
+import { dbContext } from '@/context/databaseContext'
 import { useState, useContext, useEffect } from 'react'
 import Router from 'next/router'
 import { useGetUser } from '../hooks/useAPI'
@@ -26,9 +26,9 @@ export default function Header () {
   const [ loading, error, getUser ] = useGetUser()
 
   useEffect(() => {
-    if(!user.loaded)
+    !user.loaded && userAuth &&
       getUser(userAuth.uid)
-  }, [])
+  }, [userAuth])
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);

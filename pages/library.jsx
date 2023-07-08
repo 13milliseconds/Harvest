@@ -1,6 +1,6 @@
 import { useContext } from 'react';
-import { dbContext } from '../context/databaseContext';
-import TypoTitle from '../components/typography/title';
+import { dbContext } from '@/context/databaseContext';
+import TypoTitle from '@/components/typography/title';
 import { 
     Container, 
  } from '@mui/material';

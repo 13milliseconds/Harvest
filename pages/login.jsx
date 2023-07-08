@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/router';
-import { useAuth } from '../context/authContext';
+import { useAuth } from '@/context/authContext';
 
 import LoginForm from "../components/auth/LoginForm"
 import { 

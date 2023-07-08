@@ -1,10 +1,10 @@
 import '../styles/globals.css'
-import { AuthContextProvider, useAuth } from '../context/authContext'
-import { DatabaseProvider } from '../context/databaseContext'
-import Header from '../components/Header'
-import {theme} from '../context/themeContext'
+import { AuthContextProvider, useAuth } from '@/context/authContext'
+import { DatabaseProvider } from '@/context/databaseContext'
+import Header from '@/components/Header'
+import {theme} from '@/context/themeContext'
 import { ThemeProvider } from '@emotion/react'
-import AuthWrapper from '../components/AuthWrapper'
+import AuthWrapper from '@/components/AuthWrapper'
 import {
   Box,
   Toolbar

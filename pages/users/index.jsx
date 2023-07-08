@@ -1,6 +1,6 @@
 //components
 import Container from '@mui/material/Container';
-import TypoTitle from '../../components/typography/title';
+import TypoTitle from '@/components/typography/title';
 
 
 export default function UsersPage() {
